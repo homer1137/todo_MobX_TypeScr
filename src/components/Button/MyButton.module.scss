@@ -1,0 +1,44 @@
+.myBtn {
+  padding: 5px 10px;
+  color: rgb(77, 77, 77);
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  margin: 0 10px;
+  transition: 0.2s linear;
+  font-size: 1.3rem;
+  &:hover {
+    transform: scale(1.02);
+  }
+  &:active {
+    color: coral;
+  }
+  &:disabled{
+    color: rgb(169,169,169);
+    cursor:not-allowed;
+    transform: none;
+  }
+}
+
+.myBtnRed{
+  padding: 5px 10px;
+  color: rgb(143, 68, 68);
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  margin: 0 10px;
+  transition: 0.2s linear;
+  font-size: 1.3rem;
+  &:hover {
+    transform: scale(1.02);
+  }
+  &:active {
+    color: coral;
+  }
+  &:disabled{
+    color: rgb(169,169,169);
+    cursor:not-allowed;
+    transform: none;
+  }
+}
+
