@@ -15,8 +15,8 @@ interface ManageTodoProps{
 
 const ManageTodo:FC<ManageTodoProps>  = observer(
   ({ setActive, setCompleted, active, completed }) => {
-    let result = todos.todos.filter((item) => item.done !== true).length;
-    let resultDone = todos.todos.filter((item) => item.done === true).length;
+    let result = todos.todos.filter((item) => item.completed !== true).length;
+    let resultDone = todos.todos.filter((item) => item.completed === true).length;
 
     return (
       <div className={classes.wrapper}>

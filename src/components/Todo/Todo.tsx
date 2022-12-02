@@ -6,33 +6,36 @@ import { observer } from "mobx-react-lite";
 import todos from "../../store/todos";
 
 interface TodoProps {
-  todo: { id: number; text: string; done: boolean };
+  todo: { userId: number, id: number; title: string; completed: boolean };
   todoIndex: number;
 }
 
-const Todo: FC<TodoProps> = observer(({ todo, todoIndex }) => {
+const Todo: FC<TodoProps> = observer(({ todo, todoIndex }:TodoProps) => {
+
+
   return (
     <div className={styles.todo}>
       <div className={styles.checkWrapper}>
       <IoIosRadioButtonOff
-        onClick={() => todos.completeTodo(todoIndex - 1)}
+        onClick={() => { todos.updateTodo(todoIndex-1)}}
         className={styles.circle}
       />
-      {todo.done ? <IoIosCheckmark className={styles.check} /> : null}
+      {todo.completed ? <IoIosCheckmark className={styles.check} /> : null}
       </div>
       
       <div className={styles.todoContent}>
         <strong
           style={
-            todo.done
+            todo.completed
               ? { textDecoration: "line-through" }
               : { textDecoration: "" }
           }
         >
-          {todoIndex} {todo.text}
+          {todoIndex} {todo.title} 
         </strong>
+        <button onClick={()=>todos.deleteTodo(todo.id)}>delete</button>
       </div>
-      <div>{todo.done}</div>
+      <div>{todo.completed}</div>
     </div>
   );
 });

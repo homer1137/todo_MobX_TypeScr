@@ -1,39 +1,49 @@
-import React, { ChangeEvent } from "react";
-import { FC } from "react";
+import React  from "react";
 import { useState } from "react";
-import MyButton from "../Button/MyButton";
 import styles from "./FormCreateTodo.module.scss";
 import todos from "../../store/todos";
-import { observer } from "mobx-react-lite";
 
 
-const FormCreateTodo:FC = observer(() => {
+type Props = {
+  openModal: boolean;
+  setShowModal: (value: boolean) => void;
+};
+
+const FormCreateTodo = ({ openModal, setShowModal }: Props) => {
   const [inputName, setInputName] = useState("");
 
   function createTodo(e: React.MouseEvent<HTMLButtonElement>) {
-   
     e.preventDefault();
     if (inputName) {
+      
+      todos.postTodo({
+        userId: 1,
+        id: Date.now(),
+        title: inputName,
+        completed: false,
+      });
       setInputName("");
-      todos.addTodo({ id: Date.now(), text: inputName, done: false });
+      setShowModal(false);
     }
   }
 
   return (
-    <form className={styles.wrapper}>
-      <input
-        className={styles.input}
-        type="text"
-        placeholder="Todo description"
-        onChange={(e) => setInputName(e.target.value)}
-        value={inputName}
-      ></input>
+    <div className={openModal?styles.active :styles.wrapper} onClick={()=>setShowModal(false)}>
+      <form className={styles.form_wrapper} onClick={(e)=>e.stopPropagation()}>
+        <input
+          className={styles.input}
+          type="text"
+          placeholder="Todo description"
+          onChange={(e) => setInputName(e.target.value)}
+          value={inputName}
+        ></input>
 
-      <MyButton onClick={createTodo} disabled={!inputName}>
-        Create todo2
-      </MyButton>
-    </form>
+        <button onClick={createTodo} disabled={!inputName}>
+          Create todo2
+        </button>
+      </form>
+    </div>
   );
-});
+};
 
 export default FormCreateTodo;
